@@ -11,8 +11,10 @@ fn main() {
 fn App(cx: Scope) -> Element {
     cx.render(rsx! {
         div {
-            "Hello, world!"
+            class: "container py-5",
+            div {
+                "Hello, world!",
+            }
         }
     })
 }
-

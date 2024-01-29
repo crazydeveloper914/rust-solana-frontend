@@ -1,0 +1,31 @@
+[application]
+
+# App name
+name = "dioxus_demo"
+
+# The Dioxus platform to default to
+default_platform = "web"
+
+[web.app]
+
+# HTML title tag content
+title = "dioxus_demo"
+
+[web.watcher]
+
+# When watcher is triggered, regenerate the `index.html`
+reload_html = true
+
+# Which files or dirs will be monitored
+watch_path = ["src"]
+
+# Include style or script assets
+[web.resource]
+
+# CSS style file
+style = ["https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css"]
+
+# Javascript code file
+script = ["https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js"]
+
+[web.resource.dev]

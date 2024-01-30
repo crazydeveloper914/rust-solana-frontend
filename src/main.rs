@@ -1,6 +1,9 @@
 #![allow(non_snake_case)]
 // import the prelude to get access to the `rsx!` macro and the `Scope` and `Element` types
 use dioxus::prelude::*;
+use component::app_bar::AppBar;
+
+mod component;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
@@ -10,17 +13,26 @@ fn main() {
 
 // create a component that renders a div with the text "Hello, world!"
 fn App(cx: Scope) -> Element {
+    let app_style = r#"
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        background-color: #282c34;
+    "#;
+
     cx.render(rsx! {
         div {
-            class: "container py-5",
+            style: "{app_style}",
+            AppBar{},
             div {
-                "Hello, world!",
-            }
-            button {
-                class: "btn btn-primary",
-                onclick: |_| on_click_button(),
-                r#type: "button",
-                "Click Me"
+                class: "container py-5",
+                button {
+                    class: "btn btn-primary",
+                    onclick: |_| on_click_button(),
+                    r#type: "button",
+                    "Click Me"
+                }
             }
         }
     })

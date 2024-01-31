@@ -52,20 +52,20 @@ fn TransactionForm(cx: Scope) -> Element {
             // Amount to send (SOL) input
             InputGroup {
                 field_type: "number".to_owned(),
-                placeholder: "Amount(in SOL) to send".to_owned(),
+                label: "Amount(in SOL) to send".to_owned(),
                 id: "name".to_owned(),
             }
 
             // send Sol to input
             InputGroup {
                 field_type: "text".to_owned(),
-                placeholder: "Send SOL to".to_owned(),
+                label: "Send SOL to".to_owned(),
                 id: "sol".to_owned(),
             }
 
             // send button
             button {
-                class: "btn btn-dark btn-lg",
+                class: "btn btn-info btn-lg",
                 r#type: "submit",
                 "Send"
             }
@@ -74,15 +74,14 @@ fn TransactionForm(cx: Scope) -> Element {
 }
 
 #[component]
-fn InputGroup(cx: Scope<'a>, field_type: String, placeholder: String, id: String) -> Element {
+fn InputGroup(cx: Scope, field_type: String, label: String, id: String) -> Element {
     cx.render(rsx!(
-
         div {
-            class: "form-group my-5",
+            class: "form-group my-5 text-start",
             label {
                 class: "fs-3",
                 r#for: &id[..],
-                &placeholder[..],
+                &label[..],
             }
             input {
                 r#type: &field_type[..],

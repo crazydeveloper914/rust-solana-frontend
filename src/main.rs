@@ -4,9 +4,9 @@ use component::app_bar::AppBar;
 use component::app_content::AppContent;
 use dioxus::prelude::*;
 
+mod component;
 mod service;
 mod util;
-mod component;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());

@@ -74,12 +74,7 @@ fn TransactionForm(cx: Scope) -> Element {
 }
 
 #[component]
-fn InputGroup(
-    cx: Scope<'a>,
-    field_type: String,
-    placeholder: String,
-    id: String,
-) -> Element {
+fn InputGroup(cx: Scope<'a>, field_type: String, placeholder: String, id: String) -> Element {
     cx.render(rsx!(
 
         div {

@@ -10,4 +10,6 @@ dioxus = "0.4.3"
 dioxus-web = "0.4.3"
 log = "0.4.6"
 wasm-logger = "0.2.0"
-reqwest = "0.11.23"
+reqwest = { version = "0.11.23", features = ["json"] }
+serde = "1.0.196"
+serde_json = "1.0.113"

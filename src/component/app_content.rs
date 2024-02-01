@@ -1,12 +1,15 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
 
-use crate::service::solana;
+use crate::api::solana_service;
 use crate::util::basic_util;
 
 pub fn AppContent(cx: Scope) -> Element {
-    let balance_future: &UseFuture<Result<String, reqwest::Error>> =
-        use_future(cx, (), |_| async move { solana::get_balance().await });
+    let balance_future: &UseFuture<Result<String, reqwest::Error>> = use_future(
+        cx,
+        (),
+        |_| async move { solana_service::get_balance().await },
+    );
 
     cx.render(rsx!(
         div {
@@ -39,28 +42,36 @@ fn DisplayBalance<'a>(
 }
 
 #[component]
-fn TransactionForm(cx: Scope) -> Element {
+fn TransactionForm(
+    cx: Scope,
+) -> Element {
     cx.render(rsx!(
         form {
             class: "container",
             onsubmit: move |event| {
                 let prepared_values = basic_util::prepare_form_values(event.values.clone());
 
-                log::info!("Submitted! {:?}", prepared_values);
+                async move {
+                    if let Ok(response) = solana_service::transfer_sol(prepared_values).await {
+                        log::info!("{}", response);
+                    }else {
+                        log::info!("Failed to transfer");
+                    }
+                }
             },
 
             // Amount to send (SOL) input
             InputGroup {
                 field_type: "number".to_owned(),
                 label: "Amount(in SOL) to send".to_owned(),
-                id: "name".to_owned(),
+                id: "sol_to_send".to_owned(),
             }
 
             // send Sol to input
             InputGroup {
                 field_type: "text".to_owned(),
                 label: "Send SOL to".to_owned(),
-                id: "sol".to_owned(),
+                id: "to_pubkey".to_owned(),
             }
 
             // send button

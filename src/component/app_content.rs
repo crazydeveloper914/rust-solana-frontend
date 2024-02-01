@@ -1,10 +1,17 @@
 #![allow(non_snake_case)]
+
 use dioxus::prelude::*;
 
 use crate::api::solana_service;
 use crate::util::basic_util;
 
 pub fn AppContent(cx: Scope) -> Element {
+    let is_loading = use_state(cx, || false);
+
+    let on_set_is_loading = || {
+        is_loading.modify(|value| !value);
+    };
+
     let balance_future: &UseFuture<Result<String, reqwest::Error>> = use_future(
         cx,
         (),
@@ -14,6 +21,11 @@ pub fn AppContent(cx: Scope) -> Element {
     cx.render(rsx!(
         div {
             class: "py-5 text-center text-white",
+            // loader display
+            LoaderDisplay{
+                is_loading: is_loading.get(),
+            },
+
             // Balance display
             DisplayBalance {
                 balance_future: balance_future,
@@ -26,6 +38,16 @@ pub fn AppContent(cx: Scope) -> Element {
 }
 
 #[component]
+fn LoaderDisplay<'a>(cx: Scope, is_loading: &'a bool) -> Element {
+    cx.render(match is_loading {
+        true => rsx!(div {
+            class: "spinner-border text-info"
+        },),
+        _ => rsx!(()),
+    })
+}
+
+#[component]
 fn DisplayBalance<'a>(
     cx: Scope<'a>,
     balance_future: &'a UseFuture<Result<String, reqwest::Error>>,
@@ -33,18 +55,26 @@ fn DisplayBalance<'a>(
     cx.render(match balance_future.value() {
         Some(Ok(balance)) => rsx!(
             div {
-                class: "display-2",
-                "Balance: {balance} SOL(s)",
+                class: "d-flex align-items-center justify-content-center",
+                div {
+                    class: "display-2",
+                    "Balance: {balance} SOL(s)",
+                },
+                button {
+                    class: "btn btn-dark ms-3",
+                    onclick: |_| { balance_future.restart(); },
+                    i {
+                        class: "bi bi-arrow-repeat fs-2 text-info"
+                    }
+                }
             }
         ),
-        _ => rsx!(""),
+        _ => rsx!(()),
     })
 }
 
 #[component]
-fn TransactionForm(
-    cx: Scope,
-) -> Element {
+fn TransactionForm(cx: Scope) -> Element {
     cx.render(rsx!(
         form {
             class: "container",

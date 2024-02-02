@@ -22,3 +22,11 @@ pub async fn transfer_sol(payload: HashMap<String, String>) -> Result<String, re
         .text()
         .await
 }
+
+pub async fn get_5_sols() -> Result<String, reqwest::Error> {
+    reqwest::get(format!("{}getSols", BASE_URL))
+        .await
+        .unwrap()
+        .text()
+        .await
+}

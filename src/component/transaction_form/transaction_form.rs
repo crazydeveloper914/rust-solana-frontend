@@ -35,7 +35,7 @@ pub fn TransactionForm(cx: Scope, set_is_loading: Rc<dyn Fn(bool)>) -> Element {
             // send Sol to input
             InputGroup {
                 field_type: "text".to_owned(),
-                label: "Send SOL to".to_owned(),
+                label: "Send SOL to (Public key)".to_owned(),
                 id: "to_pubkey".to_owned(),
             }
 

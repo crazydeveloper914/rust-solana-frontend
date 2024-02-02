@@ -4,10 +4,10 @@ use component::app_bar::AppBar;
 use component::app_content::AppContent;
 use dioxus::prelude::*;
 
-mod util;
 mod api;
-mod model;
 mod component;
+mod model;
+mod util;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
@@ -33,4 +33,3 @@ fn App(cx: Scope) -> Element {
         }
     })
 }
-

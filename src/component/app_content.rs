@@ -46,7 +46,7 @@ fn LoaderDisplay<'a>(cx: Scope, is_loading: &'a bool) -> Element {
     cx.render(match is_loading {
         true => rsx!(div {
             class: "spinner-border text-info"
-        },),
+        }),
         _ => rsx!(()),
     })
 }
@@ -74,7 +74,7 @@ fn DisplayBalance<'a>(
                         }
                     }
                     button {
-                        class: "btn btn-dark text-info btn-lg ms-3",
+                        class: "btn btn-info btn-lg ms-3",
                         onclick: |_| {
                             set_is_loading(true);
 
@@ -100,4 +100,3 @@ fn DisplayBalance<'a>(
         _ => rsx!(()),
     })
 }
-

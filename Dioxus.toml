@@ -9,7 +9,7 @@ default_platform = "web"
 [web.app]
 
 # HTML title tag content
-title = "dioxus_demo"
+title = "solana_with_rust"
 
 [web.watcher]
 

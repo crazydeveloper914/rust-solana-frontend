@@ -9,7 +9,7 @@ default_platform = "web"
 [web.app]
 
 # HTML title tag content
-title = "solana_with_rust"
+title = "Solana | Rust"
 
 [web.watcher]
 

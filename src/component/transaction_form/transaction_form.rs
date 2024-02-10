@@ -27,16 +27,16 @@ pub fn TransactionForm(cx: Scope, set_is_loading: Rc<dyn Fn(bool)>) -> Element {
 
             // Amount to send (SOL) input
             InputGroup {
-                field_type: "number".to_owned(),
-                label: "Amount(in SOL) to send".to_owned(),
-                id: "sol_to_send".to_owned(),
+                field_type: "number",
+                label: "Amount(in SOL) to send",
+                id: "sol_to_send",
             }
 
             // send Sol to input
             InputGroup {
-                field_type: "text".to_owned(),
-                label: "Send SOL to (Public key)".to_owned(),
-                id: "to_pubkey".to_owned(),
+                field_type: "text",
+                label: "Send SOL to (Public key)",
+                id: "to_pubkey",
             }
 
             // send button
@@ -50,7 +50,7 @@ pub fn TransactionForm(cx: Scope, set_is_loading: Rc<dyn Fn(bool)>) -> Element {
 }
 
 #[component]
-fn InputGroup(cx: Scope, field_type: String, label: String, id: String) -> Element {
+fn InputGroup<'a>(cx: Scope, field_type: &'a str, label: &'a str, id: &'a str) -> Element {
     cx.render(rsx!(
         div {
             class: "form-group my-5 text-start",
